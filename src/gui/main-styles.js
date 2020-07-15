@@ -1,4 +1,3 @@
-
 //@flow
 import {styles} from "./styles"
 import {px, size} from "./size"
