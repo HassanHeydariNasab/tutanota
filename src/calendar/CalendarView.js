@@ -740,7 +740,7 @@ export class CalendarView implements CurrentView {
 		return getHourOfDay(visibleStartOfView, DEFAULT_HOUR_OF_DAY)
 	}
 
-	view() {
+	view(): Children {
 		return m(".main-view", m(this.viewSlider))
 	}
 
@@ -992,7 +992,7 @@ export class CalendarView implements CurrentView {
 		this._replaceEvents(newMap)
 	}
 
-	getViewSlider() {
+	getViewSlider(): ViewSlider {
 		return this.viewSlider
 	}
 

@@ -352,4 +352,4 @@ const calendarAttendeeStatusToParstat = {
 	[CalendarAttendeeStatus.DECLINED]: "DECLINED",
 	[CalendarAttendeeStatus.TENTATIVE]: "TENTATIVE",
 }
-export const parstatToCalendarAttendeeStatus = reverse(calendarAttendeeStatusToParstat)
+export const parstatToCalendarAttendeeStatus: {[string]: string} = reverse(calendarAttendeeStatusToParstat)

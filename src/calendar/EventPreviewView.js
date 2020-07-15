@@ -18,7 +18,7 @@ export type Attrs = {
 export class EventPreviewView implements MComponent<Attrs> {
 	_sanitizedDescription: (string) => string = memoized((html) => htmlSanitizer.sanitize(html, true).text)
 
-	view({attrs: {event, limitDescriptionHeight}}: Vnode<Attrs>) {
+	view({attrs: {event, limitDescriptionHeight}}: Vnode<Attrs>): Children {
 		return m(".flex.col", [
 			m(".flex.col.smaller", [
 				m(".flex.pb-s.items-center", [renderSectionIndicator(BootIcons.Calendar), m(".h3", event.summary)]),

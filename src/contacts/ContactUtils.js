@@ -44,7 +44,7 @@ export const ContactMailAddressTypeToLabel: {[key: ContactAddressTypeEnum]: Tran
 	[ContactAddressType.CUSTOM]: "custom_label"
 }
 
-export function getContactAddressTypeLabel(type: ContactAddressTypeEnum, custom: string) {
+export function getContactAddressTypeLabel(type: ContactAddressTypeEnum, custom: string): string {
 	if (type === ContactAddressType.CUSTOM) {
 		return custom
 	} else {
@@ -61,7 +61,7 @@ export const ContactPhoneNumberTypeToLabel: {[key: ContactPhoneNumberTypeEnum]: 
 	[ContactPhoneNumberType.CUSTOM]: "custom_label"
 }
 
-export function getContactPhoneNumberTypeLabel(type: ContactPhoneNumberTypeEnum, custom: string) {
+export function getContactPhoneNumberTypeLabel(type: ContactPhoneNumberTypeEnum, custom: string): string {
 	if (type === ContactPhoneNumberType.CUSTOM) {
 		return custom
 	} else {
@@ -78,7 +78,7 @@ export const ContactSocialTypeToLabel: {[key: ContactSocialTypeEnum]: Translatio
 	[ContactSocialType.CUSTOM]: "custom_label"
 }
 
-export function getContactSocialTypeLabel(type: ContactSocialTypeEnum, custom: string) {
+export function getContactSocialTypeLabel(type: ContactSocialTypeEnum, custom: string): string {
 	if (type === ContactSocialType.CUSTOM) {
 		return custom
 	} else {
@@ -94,7 +94,7 @@ export function getContactSocialTypeLabel(type: ContactSocialTypeEnum, custom: s
  * 4. id
  * Missing fields are sorted below existing fields
  */
-export function compareContacts(contact1: Contact, contact2: Contact) {
+export function compareContacts(contact1: Contact, contact2: Contact): number {
 	let c1First = contact1.firstName.trim()
 	let c2First = contact2.firstName.trim()
 	let c1Last = contact1.lastName.trim()

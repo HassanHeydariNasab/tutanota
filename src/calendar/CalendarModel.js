@@ -436,7 +436,7 @@ export class CalendarModelImpl implements CalendarModel {
 		return erase(event)
 	}
 
-	_loadAndProcessCalendarUpdates() {
+	_loadAndProcessCalendarUpdates(): Promise<void> {
 		return locator.mailModel.getUserMailboxDetails().then((mailboxDetails) => {
 			const {calendarEventUpdates} = mailboxDetails.mailboxGroupRoot
 			if (calendarEventUpdates == null) return
@@ -712,9 +712,8 @@ function repeatRulesEqual(repeatRule: ?CalendarRepeatRule, repeatRule2: ?Calenda
 			repeatRule.timeZone === repeatRule2.timeZone)
 }
 
-export const calendarModel = new CalendarModelImpl(new Notifications, locator.eventController, worker, logins)
+export const calendarModel: CalendarModelImpl = new CalendarModelImpl(new Notifications, locator.eventController, worker, logins)
 
 if (replaced) {
 	Object.assign(calendarModel, replaced.calendarModel)
 }
-

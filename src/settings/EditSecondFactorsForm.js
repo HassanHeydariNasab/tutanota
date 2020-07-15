@@ -61,7 +61,7 @@ export class EditSecondFactorsForm {
 		this._updateSecondFactors()
 	}
 
-	view() {
+	view(): Children {
 		const lnk = lang.getInfoLink('2FA_link')
 		const secondFactorTableAttrs: TableAttrs = {
 			columnHeading: ["name_label", "type_label"],

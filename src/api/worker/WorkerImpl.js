@@ -418,7 +418,7 @@ export class WorkerImpl {
 		return this._queue.postMessage(new Request("counterUpdate", [update]))
 	}
 
-	infoMessage(message: InfoMessage) {
+	infoMessage(message: InfoMessage): Promise<void> {
 		return this._queue.postMessage(new Request("infoMessage", [message]))
 	}
 }

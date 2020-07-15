@@ -431,7 +431,7 @@ export class SearchBar implements Component {
 		}
 	}
 
-	_doSearch = debounce(300, (query: string, restriction: SearchRestriction, cb: () => void) => {
+	_doSearch: ((query: string, restriction: SearchRestriction, cb: () => void) => void) = debounce(300, (query: string, restriction: SearchRestriction, cb: () => void) => {
 		let useSuggestions = m.route.get().startsWith("/settings")
 		// We don't limit contacts because we need to download all of them to sort them. They should be cached anyway.
 		const limit = isSameTypeRef(MailTypeRef, restriction.type)

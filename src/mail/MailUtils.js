@@ -148,7 +148,7 @@ export function resolveRecipientInfo(mailModel: MailModel, recipientInfo: Recipi
 	}
 }
 
-export function getDisplayText(name: string, mailAddress: string, preferNameOnly: boolean) {
+export function getDisplayText(name: string, mailAddress: string, preferNameOnly: boolean): string {
 	if (name === "") {
 		return mailAddress;
 	} else if (preferNameOnly) {
@@ -188,7 +188,7 @@ export function isTutanotaTeamMail(mail: Mail): boolean {
 	return mail.confidential && (mail.state === MailState.RECEIVED) && endsWith(mail.sender.address, "@tutao.de")
 }
 
-export function isExcludedMailAddress(mailAddress: string) {
+export function isExcludedMailAddress(mailAddress: string): boolean {
 	return mailAddress === "no-reply@tutao.de"
 }
 
@@ -202,7 +202,7 @@ export function getDefaultSenderFromUser({props, userGroupInfo}: IUserController
 		: neverNull(userGroupInfo.mailAddress)
 }
 
-export function getDefaultSignature() {
+export function getDefaultSignature(): string {
 	return "<br><br>"
 		+ htmlSanitizer.sanitize(lang.get("defaultEmailSignature_msg", {"{1}": lang.getInfoLink("homePage_link")}), true).text;
 }
@@ -284,7 +284,7 @@ export function parseMailtoUrl(mailtoUrl: string): {to: MailAddress[], cc: MailA
 	}
 }
 
-export function getFolderName(folder: MailFolder) {
+export function getFolderName(folder: MailFolder): string {
 	switch (folder.folderType) {
 		case '0':
 			return folder.name
@@ -381,7 +381,7 @@ export function getEnabledMailAddressesWithUser(mailboxDetail: MailboxDetail, us
 	}
 }
 
-export function isUserMailbox(mailboxDetails: MailboxDetail) {
+export function isUserMailbox(mailboxDetails: MailboxDetail): boolean {
 	return mailboxDetails.mailGroup.user != null
 }
 

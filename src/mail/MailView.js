@@ -407,7 +407,7 @@ export class MailView implements CurrentView {
 		}
 	}
 
-	_moveMails() {
+	_moveMails(): boolean {
 		const selectedMails = this.mailList.list.getSelectedEntities()
 		if (selectedMails.length === 0) {
 			return false
@@ -440,7 +440,7 @@ export class MailView implements CurrentView {
 		return false
 	}
 
-	switchToFolder(folderType: MailFolderTypeEnum) {
+	switchToFolder(folderType: MailFolderTypeEnum): Promise<void> {
 		return this._getMailboxDetails()
 		           .then((mailboxDetails) => {
 			           m.route.set(this._folderToUrl[getFolder(mailboxDetails.folders, folderType)._id[1]])
@@ -625,7 +625,7 @@ export class MailView implements CurrentView {
 		})
 	}
 
-	createFolderAddButton(mailGroupId: Id) {
+	createFolderAddButton(mailGroupId: Id): Button {
 		return new Button('add_action', () => {
 			return Dialog.showTextInputDialog("folderNameCreate_label", "folderName_label", null, "",
 				(name) => this._checkFolderName(name, mailGroupId))
@@ -697,7 +697,7 @@ export class MailView implements CurrentView {
 		              })
 	}
 
-	_finallyDeleteCustomMailFolder(folder: MailFolder) {
+	_finallyDeleteCustomMailFolder(folder: MailFolder): Promise<void> {
 		if (folder.folderType !== MailFolderType.CUSTOM) {
 			throw new Error("Cannot delete non-custom folder: " + String(folder._id))
 		}
@@ -715,7 +715,7 @@ export class MailView implements CurrentView {
 		m.route.set("/")
 	}
 
-	elementSelected = (mails: Mail[], elementClicked: boolean, selectionChanged: boolean, multiSelectOperation: boolean) => {
+	elementSelected = (mails: Mail[], elementClicked: boolean, selectionChanged: boolean, multiSelectOperation: boolean): void => {
 		if (mails.length === 1 && !multiSelectOperation && (selectionChanged || !this.mailViewer)) {
 			// set or update the visible mail
 			this.mailViewer = new MailViewer(mails[0], false)
@@ -764,7 +764,7 @@ export class MailView implements CurrentView {
 		})
 	}
 
-	_finallyDeleteAllMailsInSelectedFolder(folder: MailFolder) {
+	_finallyDeleteAllMailsInSelectedFolder(folder: MailFolder): Promise<void> {
 		if (folder.folderType !== MailFolderType.TRASH && folder.folderType !== MailFolderType.SPAM) {
 			throw new Error(`Cannot delete mails in folder ${String(folder._id)} with type ${folder.folderType}`)
 		}
@@ -816,6 +816,6 @@ export class MailView implements CurrentView {
 	}
 }
 
-export function isNewMailActionAvailable() {
+export function isNewMailActionAvailable(): boolean {
 	return logins.isInternalUserLoggedIn() && !logins.isEnabled(FeatureType.ReplyOnly)
 }

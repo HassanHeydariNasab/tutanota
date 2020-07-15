@@ -53,7 +53,7 @@ export class U2fClient {
 			.catch(() => false)
 	}
 
-	checkVersionWithTimeout() {
+	checkVersionWithTimeout(): Promise<boolean> {
 		return Promise.race([
 			new Promise((resolve) => {
 				console.log("u2fApi.getApiVersion")

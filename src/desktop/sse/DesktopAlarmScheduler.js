@@ -20,7 +20,7 @@ export type TimeoutData = {
 
 export const MAX_SAFE_DATE = 8640000000000000
 export const MAX_SAFE_DELAY = 2147483647
-export const TRIGGER_TIMES_IN_MS = {
+export const TRIGGER_TIMES_IN_MS: {[AlarmIntervalEnum]: number} = {
 	[AlarmInterval.FIVE_MINUTES]: 1000 * 60 * 5,
 	[AlarmInterval.TEN_MINUTES]: 1000 * 60 * 10,
 	[AlarmInterval.THIRTY_MINUTES]: 1000 * 60 * 30,
@@ -172,7 +172,17 @@ export class DesktopAlarmScheduler {
 /**
  * yield event occurrences according to the repeatRule contained in the AlarmNotification
  */
-export function occurrenceIterator() {
+export function occurrenceIterator(): {|
+  firstOccurrence: Date,
+  lastOccurrenceDate: Date,
+  lastYieldedOccurrence: null,
+  maxOccurrences: number,
+  next: () => {|done: any, value: any|},
+  nextYieldedOccurrence: Date,
+  numYieldedOccurrences: number,
+  occurrenceIncrement: any | null,
+  occurrenceInterval: null | number,
+|} {
 	let maxOccurrences: number = 1
 	let lastOccurrenceDate: Date = new Date(MAX_SAFE_DATE)
 	let occurrenceIncrement = null

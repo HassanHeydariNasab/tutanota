@@ -115,7 +115,7 @@ export class UpgradeSubscriptionPageAttrs implements WizardPageAttrs<UpgradeSubs
 		return Promise.resolve(true)
 	}
 
-	isSkipAvailable() {
+	isSkipAvailable(): boolean {
 		return false
 	}
 

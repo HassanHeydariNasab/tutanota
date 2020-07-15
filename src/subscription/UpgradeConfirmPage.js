@@ -173,11 +173,11 @@ export class UpgradeConfirmPageAttrs implements WizardPageAttrs<UpgradeSubscript
 		return Promise.resolve(true)
 	}
 
-	isSkipAvailable() {
+	isSkipAvailable(): boolean {
 		return false
 	}
 
-	isEnabled() {
+	isEnabled(): boolean {
 		return true
 	}
 }

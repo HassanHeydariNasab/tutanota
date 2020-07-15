@@ -166,7 +166,7 @@ export class ContactViewer {
 		this._setupShortcuts()
 	}
 
-	getSocialUrl(element: ContactSocialId) {
+	getSocialUrl(element: ContactSocialId): string {
 		let socialUrlType = ""
 		let http = "https://"
 		let worldwidew = "www."

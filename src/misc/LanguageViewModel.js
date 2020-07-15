@@ -57,7 +57,7 @@ export const languages: Language[] = [
 	{code: 'zh', textId: 'languageChineseSimplified_label'},
 	{code: 'zh_tw', textId: 'languageChineseTraditional_label'}
 ]
-export const languageByCode = languages.reduce((acc, curr) => {
+export const languageByCode: {[string]: Language} = languages.reduce((acc, curr) => {
 	acc[curr.code] = curr
 	return acc
 }, {})
@@ -317,7 +317,7 @@ export class LanguageViewModel {
 		return typeof value === "function" ? value() : lang.get(value)
 	}
 
-	getInfoLink(id: string) {
+	getInfoLink(id: string): string {
 		return infoLinks[id]
 	}
 

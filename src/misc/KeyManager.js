@@ -38,7 +38,7 @@ export interface Shortcut {
 	help: TranslationKey;
 }
 
-export function focusPrevious(dom: HTMLElement) {
+export function focusPrevious(dom: HTMLElement): boolean {
 	let tabbable = Array.from(dom.querySelectorAll(TABBABLE)).filter(e => e.style.display !== 'none')
 	let selected = tabbable.find(e => document.activeElement === e)
 	if (selected) {
@@ -60,7 +60,7 @@ export function focusPrevious(dom: HTMLElement) {
 	}
 }
 
-export function focusNext(dom: HTMLElement) {
+export function focusNext(dom: HTMLElement): boolean {
 	let tabbable = Array.from(dom.querySelectorAll(TABBABLE)).filter(e => e.style.display !== 'none')
 	let selected = tabbable.find(e => document.activeElement === e)
 	if (selected) {

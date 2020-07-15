@@ -174,7 +174,7 @@ export class SendMailModel {
 		this._senderAddress = senderAddress
 	}
 
-	getPasswordStrength(recipientInfo: RecipientInfo) {
+	getPasswordStrength(recipientInfo: RecipientInfo): number {
 		const contact = assertNotNull(recipientInfo.contact)
 		let reserved = getEnabledMailAddressesWithUser(this._mailboxDetails, this._logins.getUserController().userGroupInfo).concat(
 			getMailboxName(this._logins, this._mailboxDetails),
@@ -329,7 +329,7 @@ export class SendMailModel {
 		this.recipientsChanged(undefined)
 	}
 
-	setPassword(recipient: RecipientInfo, password: string) {
+	setPassword(recipient: RecipientInfo, password: string): RecipientInfo {
 		if (recipient.contact) {
 			recipient.contact.presharedPassword = password
 		}
@@ -397,11 +397,11 @@ export class SendMailModel {
 		})
 	}
 
-	_getSenderName() {
+	_getSenderName(): string {
 		return getSenderNameForUser(this._mailboxDetails, this._logins.getUserController())
 	}
 
-	_updateDraft(body: string, attachments: ?$ReadOnlyArray<EditorAttachment>, draft: Mail) {
+	_updateDraft(body: string, attachments: ?$ReadOnlyArray<EditorAttachment>, draft: Mail): Promise<Mail> {
 		return worker
 			.updateMailDraft(this._subject(), body, this._senderAddress, this._getSenderName(), this._toRecipients,
 				this._ccRecipients, this._bccRecipients, attachments, this.isConfidential(), draft)
@@ -510,7 +510,7 @@ export class SendMailModel {
 			})
 	}
 
-	_sendApprovalMail(body: string) {
+	_sendApprovalMail(body: string): Promise<void> {
 		const listId = "---------c--";
 		const m = createApprovalMail({
 			_id: [listId, stringToCustomId(this._senderAddress)],

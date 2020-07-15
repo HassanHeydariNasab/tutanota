@@ -98,7 +98,7 @@ export class IdentifierListViewer {
 		update(identifier).then(m.redraw)
 	}
 
-	view() {
+	view(): Children {
 		const pushIdentifiersExpanderAttrs: ExpanderAttrs = {
 			label: "show_action",
 			expanded: this._expanded

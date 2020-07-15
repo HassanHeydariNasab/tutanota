@@ -172,7 +172,7 @@ export class WhitelabelSettingsViewer implements UpdatableSettingsViewer {
 		}
 	}
 
-	_isWhitelabelRegistrationVisible() {
+	_isWhitelabelRegistrationVisible(): boolean {
 		return this._customer.isLoaded() &&
 			this._customer.getLoaded().customizations.find(c => c.feature === FeatureType.WhitelabelParent) &&
 			this._customerInfo.isLoaded() &&

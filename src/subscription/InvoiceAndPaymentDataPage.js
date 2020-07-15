@@ -135,7 +135,7 @@ export class InvoiceAndPaymentDataPageAttrs implements WizardPageAttrs<UpgradeSu
 		return lang.get("adminPayment_action")
 	}
 
-	isSkipAvailable() {
+	isSkipAvailable(): boolean {
 		return false
 	}
 

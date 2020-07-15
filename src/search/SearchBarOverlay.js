@@ -38,7 +38,7 @@ type SearchBarOverlayAttrs = {
 }
 
 export class SearchBarOverlay implements MComponent<SearchBarOverlayAttrs> {
-	view({attrs}: Vnode<SearchBarOverlayAttrs>) {
+	view({attrs}: Vnode<SearchBarOverlayAttrs>): Children {
 		const {state} = attrs
 		return [
 			this._renderIndexingStatus(state, attrs),
@@ -48,7 +48,7 @@ export class SearchBarOverlay implements MComponent<SearchBarOverlayAttrs> {
 		]
 	}
 
-	renderResults(state: SearchBarState, attrs: SearchBarOverlayAttrs) {
+	renderResults(state: SearchBarState, attrs: SearchBarOverlayAttrs): Children {
 		return m("ul.list.click.mail-list", [
 			state.entities.map((result) => {
 				return m("li.plr-l.flex-v-center.", {
@@ -78,7 +78,7 @@ export class SearchBarOverlay implements MComponent<SearchBarOverlayAttrs> {
 		}
 	}
 
-	_renderProgress(state: SearchBarState, attrs: SearchBarOverlayAttrs) {
+	_renderProgress(state: SearchBarState, attrs: SearchBarOverlayAttrs): Children {
 		return m(".flex.col.rel", [
 			m(".plr-l.pt-s.pb-s.flex.items-center.flex-space-between.mr-negative-s", {
 				style: {
@@ -111,7 +111,7 @@ export class SearchBarOverlay implements MComponent<SearchBarOverlayAttrs> {
 		])
 	}
 
-	_renderError(failedIndexingUpTo: number, attrs: SearchBarOverlayAttrs) {
+	_renderError(failedIndexingUpTo: number, attrs: SearchBarOverlayAttrs): Children {
 		return m(".flex.rel", [
 			m(".plr-l.pt-s.pb-s.flex.items-center.flex-space-between.mr-negative-s", {
 				style: {
@@ -129,7 +129,7 @@ export class SearchBarOverlay implements MComponent<SearchBarOverlayAttrs> {
 		])
 	}
 
-	renderResult(state: SearchBarState, result: Entry) {
+	renderResult(state: SearchBarState, result: Entry): Children {
 		let type: ?TypeRef = result._type ? result._type : null
 		if (!type) { // show more action
 			let showMoreAction = ((result: any): ShowMoreAction)

@@ -223,7 +223,7 @@ export function encryptString(sk: Aes128Key, value: string): Uint8Array {
 	return aes128Encrypt(sk, stringToUtf8Uint8Array(value), random.generateRandomData(IV_BYTE_LENGTH), true, ENABLE_MAC)
 }
 
-export function valueToDefault(type: ValueTypeEnum) {
+export function valueToDefault(type: ValueTypeEnum): Date | Uint8Array | string | boolean {
 	switch (type) {
 		case ValueType.String:
 			return ""

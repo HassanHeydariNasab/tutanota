@@ -172,7 +172,7 @@ export class ContactFormViewer implements UpdatableSettingsViewer {
 		}
 	}
 
-	_getContactFormTitle(contactForm: ContactForm) {
+	_getContactFormTitle(contactForm: ContactForm): string {
 		let pageTitle = ""
 		let language = contactForm.languages.find(l => l.code === lang.code)
 		if (language) {

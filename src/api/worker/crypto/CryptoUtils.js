@@ -111,4 +111,4 @@ export function keyToUint8Array(key: BitArray): Uint8Array {
 	return base64ToUint8Array(keyToBase64(key))
 }
 
-export const fixedIv = hexToUint8Array('88888888888888888888888888888888')
+export const fixedIv: Uint8Array = hexToUint8Array('88888888888888888888888888888888')

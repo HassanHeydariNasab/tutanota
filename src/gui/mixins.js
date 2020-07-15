@@ -14,7 +14,13 @@ export const noselect = {
 	user_select: 'none', /* non_prefixed version, currently not supported by any browser */
 }
 
-export function position_absolute(top: ?number, right: ?number, bottom: ?number, left: ?number) {
+export function position_absolute(top: ?number, right: ?number, bottom: ?number, left: ?number): {|
+  bottom: any | number | string,
+  left: any | number | string,
+  position: string,
+  right: any | number | string,
+  top: any | number | string,
+|} {
 	return {
 		position: 'absolute',
 		top: positionValue(top),
@@ -24,7 +30,7 @@ export function position_absolute(top: ?number, right: ?number, bottom: ?number,
 	}
 }
 
-export function positionValue(value: ?number) {
+export function positionValue(value: ?number): any | number | string {
 	if (value) {
 		return px(value)
 	} else if (value === 0) {
@@ -34,7 +40,12 @@ export function positionValue(value: ?number) {
 	}
 }
 
-export function flex(args: string) {
+export function flex(args: string): {|
+  _ms_flex: string,
+  _webkit_box_flex: string,
+  _webkit_flex: string,
+  flex: string,
+|} {
 	return {
 		_webkit_box_flex: args,
 		_webkit_flex: args,

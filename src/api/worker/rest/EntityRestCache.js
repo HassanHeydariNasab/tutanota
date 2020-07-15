@@ -152,7 +152,7 @@ export class EntityRestCache implements EntityRestInterface {
 		}
 	}
 
-	isRangeRequest(listId: ?Id, id: ?Id, queryParameter: ?Params) {
+	isRangeRequest(listId: ?Id, id: ?Id, queryParameter: ?Params): boolean {
 		// check for null and undefined because "" and 0 are als falsy
 		return listId && !id
 			&& queryParameter

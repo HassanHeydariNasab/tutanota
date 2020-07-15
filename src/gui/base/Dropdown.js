@@ -192,7 +192,7 @@ export class Dropdown {
 		return this._isFilterable ? size.button_height + size.vpad_xs : 0
 	}
 
-	_createShortcuts() {
+	_createShortcuts(): Array<Shortcut> {
 		const next = () => {
 			let visibleElements = this._visibleItems().filter(b => (typeof b !== "string"))
 			visibleElements = ((visibleElements: any): Array<Button>).map(b => b._domButton)
@@ -297,7 +297,7 @@ export class Dropdown {
 		this.close()
 	}
 
-	show(domElement: HTMLElement) {
+	show(domElement: HTMLElement): Promise<void> {
 		this._domContents = domElement
 
 		const origin = this.origin

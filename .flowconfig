@@ -4,9 +4,13 @@
 .*/build/.*
 .*/resources/.*
 .*/buildSrc/.*
+.app-android/.*
+.app-ios/.*
+.fdroid-metadata-workaround/.*
 
 [libs]
 flow
 
 [options]
 module.ignore_non_literal_requires=true
+well_formed_exports=true

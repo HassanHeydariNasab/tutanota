@@ -316,7 +316,7 @@ export function oaepUnpad(value: Uint8Array, keyLength: number): Uint8Array {
  *    32           32    keyLen-2*32-2  1  value.length
  * The label is the hash of an empty string like defined in PKCS#1 v2.1
  */
-export function _getPSBlock(value: Uint8Array, keyLength: number) {
+export function _getPSBlock(value: Uint8Array, keyLength: number): Uint8Array {
 	let hashLength = 32 // bytes sha256
 	let blockLength = keyLength / 8 - 1 // the leading byte shall be 0 to make the resulting value in any case smaller than the modulus, so we just leave the byte off
 	let block = new Uint8Array(blockLength)

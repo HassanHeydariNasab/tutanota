@@ -118,7 +118,7 @@ export class ElectronUpdater {
 		})
 	}
 
-	+_enableAutoUpdateListener = () => this.start()
+	+_enableAutoUpdateListener: (() => void) = () => this.start()
 
 	start() {
 		try {

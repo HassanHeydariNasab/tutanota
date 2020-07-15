@@ -11,7 +11,7 @@ export const rsaApp = {
 	rsaDecrypt,
 }
 
-function generateRsaKey(seed: Uint8Array) {
+function generateRsaKey(seed: Uint8Array): Promise<RsaKey> {
 	return nativeApp.invokeNative(new Request("generateRsaKey", [uint8ArrayToBase64(seed)]))
 }
 

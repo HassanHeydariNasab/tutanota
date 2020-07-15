@@ -150,3 +150,6 @@ type Status = {
 type ButtonColors = {button: string, button_selected: string, icon: string, icon_selected: string}
 
 declare var indexedDB: any;
+
+// needed for async imports currently, remove after rollup
+declare var module: {id: string};

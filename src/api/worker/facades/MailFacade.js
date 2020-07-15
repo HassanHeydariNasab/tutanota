@@ -89,7 +89,7 @@ export class MailFacade {
 		this._entity = entity
 	}
 
-	createMailFolder(name: string, parent: IdTuple, ownerGroupId: Id) {
+	createMailFolder(name: string, parent: IdTuple, ownerGroupId: Id): Promise<void> {
 		let mailGroupKey = this._login.getGroupKey(ownerGroupId)
 		let sk = aes128RandomKey()
 		let newFolder = createCreateMailFolderData()
@@ -524,7 +524,7 @@ export class MailFacade {
 	}
 }
 
-export function phishingMarkerValue(type: ReportedMailFieldTypeEnum, value: string) {
+export function phishingMarkerValue(type: ReportedMailFieldTypeEnum, value: string): string {
 	return type + murmurHash(value.replace(/\s/g, ""))
 }
 

@@ -119,11 +119,11 @@ export class WindowManager {
 		return w
 	}
 
-	openMailBox(info: UserInfo) {
+	openMailBox(info: UserInfo): Promise<void> {
 		return this.findWindowWithUserId(info.userId).openMailBox(info, null)
 	}
 
-	openCalendar(info: UserInfo) {
+	openCalendar(info: UserInfo): Promise<void> {
 		return this.findWindowWithUserId(info.userId).openCalendar(info)
 	}
 

@@ -6,7 +6,7 @@ import {CloseEventBusOption, SECOND_MS} from "../api/common/TutanotaConstants"
 import type {MailEditor} from "../mail/MailEditor"
 import {nativeApp} from "./NativeWrapper"
 
-const createMailEditor = (msg: Request) => {
+const createMailEditor = (msg: Request): Promise<void> => {
 	return Promise.all([
 		_asyncImport('src/api/main/MainLocator.js'),
 		_asyncImport('src/mail/MailEditor.js'),
@@ -93,7 +93,7 @@ const applySearchResultToOverlay = (result: any): Promise<void> => {
 	})
 }
 
-const addShortcuts = (msg: any) => {
+const addShortcuts = (msg: any): Promise<void> => {
 	msg.args.forEach(a => a.exec = () => true)
 	return _asyncImport('src/misc/KeyManager.js').then(module => {
 		module.keyManager.registerDesktopShortcuts(msg.args)

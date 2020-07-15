@@ -21,7 +21,7 @@ class WindowFacade {
 	_historyStateEventListeners: Array<(e: Event) => boolean> = [];
 	_worker: WorkerClient;
 	// following two properties are for the iOS
-	_keyboardSize = 0;
+	_keyboardSize: number = 0;
 	_keyboardSizeListeners: KeyboardSizeListener[] = [];
 	_ignoreNextPopstate: boolean = false;
 
@@ -123,7 +123,7 @@ class WindowFacade {
 		this.windowCloseConfirmation = enable
 	}
 
-	_beforeUnload(e: any) { // BeforeUnloadEvent
+	_beforeUnload(e: any): ?string { // BeforeUnloadEvent
 		console.log("windowfacade._beforeUnload")
 		this._notifyCloseListeners(e)
 		if (this.windowCloseConfirmation) {

@@ -76,6 +76,6 @@ export function isDomainOrTopLevelDomain(value: string): boolean {
 	return DOMAIN_OR_TLD_REGEXP.test(value)
 }
 
-export function isRegularExpression(value: string) {
+export function isRegularExpression(value: string): boolean {
 	return /^\/.*\/$/.test(value)
 }
