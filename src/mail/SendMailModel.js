@@ -47,7 +47,7 @@ import {EventController, isUpdateForTypeRef} from "../api/main/EventController"
 import {isMailAddress} from "../misc/FormatValidator"
 import {createApprovalMail} from "../api/entities/monitor/ApprovalMail"
 import type {EncryptedMailAddress} from "../api/entities/tutanota/EncryptedMailAddress"
-import {remove} from "../api/common/utils/ArrayUtils"
+import {deduplicate, remove} from "../api/common/utils/ArrayUtils"
 import type {ContactModel} from "../contacts/ContactModel"
 import type {Language, TranslationKey} from "../misc/LanguageViewModel"
 import {_getSubstitutedLanguageCode, getAvailableLanguageCode, lang, languages} from "../misc/LanguageViewModel"
@@ -448,6 +448,7 @@ export class SendMailModel {
 		this._body = bodyText
 		this._draft = draft || null
 		const {to = [], cc = [], bcc = []} = recipients
+
 		const makeRecipientInfo = (r: Recipient) => {
 			const recipient = this._createAndResolveRecipientInfo(r.name, r.address, r.contact, false)
 			if (recipient.resolveContactPromise) {
@@ -457,13 +458,13 @@ export class SendMailModel {
 			}
 			return recipient
 		}
-
-		this._recipients.set("to", to.filter(r => isMailAddress(r.address, false))
-		                             .map(makeRecipientInfo))
-		this._recipients.set("cc", cc.filter(r => isMailAddress(r.address, false))
-		                             .map(makeRecipientInfo))
-		this._recipients.set("bcc", bcc.filter(r => isMailAddress(r.address, false))
-		                               .map(makeRecipientInfo))
+		const recipientsTransform = (recipientList) => {
+			return deduplicate(recipientList.filter(r => isMailAddress(r.address, false)), (a, b) => a.address === b.address)
+				.map(makeRecipientInfo)
+		}
+		this._recipients.set("to", recipientsTransform(to))
+		this._recipients.set("cc", recipientsTransform(cc))
+		this._recipients.set("bcc", recipientsTransform(bcc))
 
 		this._senderAddress = senderMailAddress || this._getDefaultSender()
 		this._isConfidential = confidential == null ? !this.user().props.defaultUnconfidential : confidential

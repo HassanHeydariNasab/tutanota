@@ -1,6 +1,13 @@
 //@flow
 import o from "ospec/ospec.js"
-import {arrayEquals, concat, findLastIndex, insertIntoSortedArray, splitInChunks} from "../../../src/api/common/utils/ArrayUtils"
+import {
+	arrayEquals,
+	concat,
+	deduplicate,
+	findLastIndex,
+	insertIntoSortedArray,
+	splitInChunks
+} from "../../../src/api/common/utils/ArrayUtils"
 
 type ObjectWithId = {
 	v: number,
@@ -112,5 +119,11 @@ o.spec("array utils", function () {
 				{v: 12, id: 5},
 				[{v: 1, id: 0}, {v: 2, id: 1}, {v: 8, id: 3}, {v: 10, id: 4}, {v: 12, id: 5}], same)
 		})
+	})
+
+	o("deduplicate", function () {
+		const comp = (a, b) => a === b
+		o(deduplicate([1, 2, 3, 4, 5, 6, 7, 8], comp)).deepEquals([1, 2, 3, 4, 5, 6, 7, 8])
+		o(deduplicate([1, 1, 2, 3, 4, 4, 5, 6, 7, 8, 6, 5, 9, 4, 9, 3, 2, 1, 2, 3, 4], comp).sort()).deepEquals([1, 2, 3, 4, 5, 6, 7, 8, 9])
 	})
 })

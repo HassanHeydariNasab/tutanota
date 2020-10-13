@@ -50,7 +50,6 @@ import {windowFacade} from "../misc/WindowFacade"
 import {UserError} from "../api/common/error/UserError"
 import {showProgressDialog} from "../gui/base/ProgressDialog"
 import {htmlSanitizer} from "../misc/HtmlSanitizer"
-import type {DropDownSelectorAttrs} from "../gui/base/DropDownSelectorN"
 import {DropDownSelectorN} from "../gui/base/DropDownSelectorN"
 import type {Mail} from "../api/entities/tutanota/Mail"
 import type {File as TutanotaFile} from "../api/entities/tutanota/File"
@@ -274,7 +273,9 @@ export class MailEditorN implements MComponent<MailEditorAttrs> {
 			dropdownWidth: 250,
 		}
 
-		const passwordFieldsAttrs =
+		const attachmentButtonAttrs = createAttachmentButtonAttrs(model, this.inlineImageElements, this.mentionedInlineImages)
+
+		const lazyPasswordFieldAttrs =
 			() => model.allRecipients()
 			           .filter(r => r.type === RecipientInfoType.EXTERNAL || r.type === RecipientInfoType.UNKNOWN
 				           && !r.resolveContactPromise) // only show passwords for resolved contacts, otherwise we might not get the password
@@ -283,16 +284,17 @@ export class MailEditorN implements MComponent<MailEditorAttrs> {
 				           onbeforeremove: vnode => animate(vnode.dom, false)
 			           })))
 
-		const attachmentButtonAttrs = createAttachmentButtonAttrs(model, this.inlineImageElements, this.mentionedInlineImages)
 
-		const languageDropDownAttrs: DropDownSelectorAttrs<string> = {
-			label: "notificationMailLanguage_label",
-			items: model.getAvailableNotificationTemplateLanguages().map(language => {
-				return {name: lang.get(language.textId), value: language.code}
-			}),
-			selectedValue: stream(model.getSelectedNotificationLanguageCode()),
-			selectionChangedHandler: (v) => model.setSelectedNotificationLanguageCode(v),
-			dropdownWidth: 250
+		const lazyLanguageDropDownAttrs = () => {
+			return {
+				label: "notificationMailLanguage_label",
+				items: model.getAvailableNotificationTemplateLanguages().map(language => {
+					return {name: lang.get(language.textId), value: language.code}
+				}),
+				selectedValue: stream(model.getSelectedNotificationLanguageCode()),
+				selectionChangedHandler: (v) => model.setSelectedNotificationLanguageCode(v),
+				dropdownWidth: 250
+			}
 		}
 
 
@@ -338,7 +340,7 @@ export class MailEditorN implements MComponent<MailEditorAttrs> {
 							? m("", {
 								oncreate: vnode => animations.add(vnode.dom, opacity(0, 1, false)),
 								onbeforeremove: vnode => animations.add(vnode.dom, opacity(1, 0, false))
-							}, m(DropDownSelectorN, languageDropDownAttrs))
+							}, m(DropDownSelectorN, lazyLanguageDropDownAttrs()))
 							: null
 						)
 
@@ -349,7 +351,7 @@ export class MailEditorN implements MComponent<MailEditorAttrs> {
 				? m(".external-recipients.overflow-hidden", {
 					oncreate: vnode => animate(vnode.dom, true),
 					onbeforeremove: vnode => animate(vnode.dom, false)
-				}, passwordFieldsAttrs())
+				}, lazyPasswordFieldAttrs())
 				: null,
 			m(".row", m(TextFieldN, subjectFieldAttrs)),
 			m(".flex-start.flex-wrap.ml-negative-RecipientInfoBubble", attachmentButtonAttrs.map((a) => m(ButtonN, a))),

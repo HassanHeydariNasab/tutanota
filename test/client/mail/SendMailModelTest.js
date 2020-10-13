@@ -146,19 +146,19 @@ o.spec("SendMailModel", () => {
 
 	o.beforeEach(() => {
 
-		testIdGenerator = {
-			currentIdValue: 0,
-			currentListIdValue: 0,
-			newId(): Id {
-				return (this.currentIdValue++).toString()
-			},
-			newListId(): Id {
-				return (this.currentListIdValue++).toString()
-			},
-			newIdTuple(): IdTuple {
-				return [this.newListId(), this.newId()]
+		currentIdValue: 0,
+			testIdGenerator = {
+				currentListIdValue: 0,
+				newId(): Id {
+					return (this.currentIdValue++).toString()
+				},
+				newListId(): Id {
+					return (this.currentListIdValue++).toString()
+				},
+				newIdTuple(): IdTuple {
+					return [this.newListId(), this.newId()]
+				}
 			}
-		}
 
 		worker = mockWorker()
 		locator.init(worker) // because it is used in certain parts of the code
@@ -279,6 +279,35 @@ o.spec("SendMailModel", () => {
 
 			const initializedModel = await model.initWithTemplate(
 				{to: [INTERNAL_RECIPIENT_1]},
+				SUBJECT_LINE_1,
+				BODY_TEXT_1,
+				[],
+				false,
+				DEFAULT_SENDER_FOR_TESTING
+			)
+
+			o(initializedModel.getConversationType()).equals(ConversationType.NEW)
+			o(initializedModel.getSubject()).equals(SUBJECT_LINE_1)
+			o(initializedModel.getBody()).equals(BODY_TEXT_1)
+			o(initializedModel.getDraft()).equals(null)
+			o(initializedModel.allRecipients().length).equals(1)
+			o(initializedModel.getSender()).equals(DEFAULT_SENDER_FOR_TESTING)
+			o(model.isConfidential()).equals(true)
+			o(model.containsExternalRecipients()).equals(false)
+			o(initializedModel.getAttachments().length).equals(0)
+
+			o(initializedModel.hasMailChanged()).equals(false)("initialization should not flag mail changed")
+		})
+
+		o("initWithTemplate duplicated recipients", async () => {
+
+			const duplicate = {
+				name: INTERNAL_RECIPIENT_1.name,
+				address: INTERNAL_RECIPIENT_1.address,
+				contact: INTERNAL_RECIPIENT_1.contact
+			}
+			const initializedModel = await model.initWithTemplate(
+				{to: [INTERNAL_RECIPIENT_1, duplicate]},
 				SUBJECT_LINE_1,
 				BODY_TEXT_1,
 				[],
