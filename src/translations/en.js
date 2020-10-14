@@ -1106,7 +1106,7 @@ module.exports = {
 		"unlimited_label": "Unlimited",
 		"unrecognizedU2fDevice_msg": "Your security key has not been recognized.",
 		"unregistered_label": "Not registered",
-		"unsubscribeConfirm_msg": "Do you really want to stop your subscription? Your account will be reset to Free now and you will  immediately lose your paid features.",
+		"unsubscribeConfirm_msg": "Do you really want to stop your subscription? Your account will be reset to Free now and you will immediately lose your paid features. Please also note that Free accounts are deleted if they have not been used for more than six months.",
 		"unsubscribeFailed_msg": "Could not cancel newsletter or mailing list.",
 		"unsubscribeSuccessful_msg": "The newsletter or mailing list has been cancelled successfully!",
 		"unsubscribe_action": "Unsubscribe",
@@ -1186,6 +1186,10 @@ module.exports = {
 		"noUpdateAvailable_msg": "No Update found.",
 		"installNow_action": "Install now.",
 		"checkingForUpdate_action": "Checking for Update…",
-		"resetZoomFactor_action": "Reset Zoom Factor"
+		"resetZoomFactor_action": "Reset Zoom Factor",
+		"confirmFreeAccount_label": "Free account confirmation",
+		"freeAccountInfo_msg": "Only one Free account is allowed per person and Free accounts may only be used for private communication. If you want to use Tutanota for your business (e.g. for your company or organization or as freelancer) please order a paid subscription. Please also note that Free accounts are deleted if they have not been used for more than six months.",
+		"confirmNoOtherFreeAccount_msg": "I do not own any other Free account.",
+		"confirmPrivateUse_msg": "I will not use this account for business."
 	}
 }

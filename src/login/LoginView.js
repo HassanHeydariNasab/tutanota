@@ -35,7 +35,7 @@ export class LoginView {
 	targetPath: string;
 	mailAddress: TextField;
 	password: TextField;
-	helpText: string;
+	helpText: Vnode<any> | string;
 	invalidCredentials: boolean;
 	savePassword: Checkbox;
 	appButtons: Button[];
@@ -274,7 +274,7 @@ export class LoginView {
 			})),
 			m("p.center.statusTextColor", m("small" + liveDataAttrs(),
 				[
-					this.helpText + " ",
+					this.helpText, " ",
 					this.invalidCredentials && this._recoverLoginVisible()
 						? m('a', {
 							href: '/recover',

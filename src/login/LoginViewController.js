@@ -4,7 +4,7 @@ import {worker} from "../api/main/WorkerClient"
 import {Dialog} from "../gui/base/Dialog"
 import {
 	AccessBlockedError,
-	AccessDeactivatedError,
+	AccessDeactivatedError, AccessExpiredError,
 	BadRequestError,
 	ConnectionError,
 	LockedError,
@@ -173,6 +173,14 @@ export class LoginViewController implements ILoginViewController {
 		            })
 		            .catch(AccessDeactivatedError, e => {
 			            this.view.helpText = lang.get('loginFailed_msg')
+			            m.redraw()
+			            return errorAction()
+		            })
+		            .catch(AccessExpiredError, e => {
+			            this.view.helpText = m("span", [
+				            lang.get('inactiveAccount_msg'),
+				            m("a", {href: "https://tutanota.com/faq/#inactive-accounts", target: "_blank"}, "https://tutanota.com/faq/#inactive-accounts")
+			            ])
 			            m.redraw()
 			            return errorAction()
 		            })
