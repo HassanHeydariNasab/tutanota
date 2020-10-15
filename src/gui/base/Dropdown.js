@@ -11,6 +11,7 @@ import {windowFacade} from "../../misc/WindowFacade"
 import {Keys} from "../../api/common/TutanotaConstants"
 import {newMouseEvent} from "../HtmlUtils"
 import {showDropdown} from "./DropdownN"
+import type {Shortcut} from "../../misc/KeyManager"
 
 assertMainOrNodeBoot()
 
@@ -307,8 +308,9 @@ export class Dropdown {
 				                           previous + ((typeof current === "string")
 				                           ? size.button_height
 				                           : current.getHeight()), 0) + size.vpad_small * 2
-			showDropdown(origin, this._domDropdown, contentsHeight, this._width)
+			return showDropdown(origin, this._domDropdown, contentsHeight, this._width)
 		}
+		return Promise.resolve()
 	}
 
 	/**

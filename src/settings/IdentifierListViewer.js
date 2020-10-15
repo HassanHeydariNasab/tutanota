@@ -27,6 +27,7 @@ import {TextFieldN} from "../gui/base/TextFieldN"
 import {isUpdateForTypeRef} from "../api/main/EventController"
 import type {User} from "../api/entities/sys/User"
 import type {PushIdentifier} from "../api/entities/sys/PushIdentifier"
+import type {EntityUpdateData} from "../api/main/EventController"
 
 type IdentifierRowAttrs = {|
 	name: string,

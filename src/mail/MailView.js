@@ -715,7 +715,7 @@ export class MailView implements CurrentView {
 		m.route.set("/")
 	}
 
-	elementSelected = (mails: Mail[], elementClicked: boolean, selectionChanged: boolean, multiSelectOperation: boolean): void => {
+	elementSelected: Function = (mails: Mail[], elementClicked: boolean, selectionChanged: boolean, multiSelectOperation: boolean): void => {
 		if (mails.length === 1 && !multiSelectOperation && (selectionChanged || !this.mailViewer)) {
 			// set or update the visible mail
 			this.mailViewer = new MailViewer(mails[0], false)

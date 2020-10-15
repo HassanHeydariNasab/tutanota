@@ -591,7 +591,7 @@ export function incrementSequence(sequence: string): string {
 	return String(current + 1)
 }
 
-export function getNextHalfHour() {
+export function getNextHalfHour(): Date {
 	let date: Date = new Date()
 	if (date.getMinutes() > 30) {
 		date.setHours(date.getHours() + 1, 0)

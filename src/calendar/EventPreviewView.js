@@ -9,6 +9,7 @@ import {memoized} from "../api/common/utils/Utils"
 import {htmlSanitizer} from "../misc/HtmlSanitizer"
 import {iconForAttendeeStatus} from "./CalendarEventEditDialog"
 import {formatEventDuration, getTimeZone} from "./CalendarUtils"
+import {attendeeStatusByCode} from "../api/common/TutanotaConstants"
 
 export type Attrs = {
 	event: CalendarEvent,
@@ -32,7 +33,11 @@ export class EventPreviewView implements MComponent<Attrs> {
 					? m(".flex.pb-s", [
 						renderSectionIndicator(BootIcons.Contacts),
 						m(".flex-wrap", event.attendees.map(a => m(".flex.items-center", [
-							m(Icon, {icon: iconForAttendeeStatus[a.status], style: {fill: theme.content_fg}, class: "mr-s"}),
+							m(Icon, {
+								icon: iconForAttendeeStatus[attendeeStatusByCode[a.status]],
+								style: {fill: theme.content_fg},
+								class: "mr-s"
+							}),
 							m(".span.line-break-anywhere", a.address.address),
 						]))),
 					])

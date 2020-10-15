@@ -5,6 +5,7 @@ import stream from "mithril/stream/stream.js"
 import {Icons} from "./icons/Icons"
 import {client} from "../../misc/ClientDetector"
 import {formatDate, formatDateWithMonth, formatMonthWithFullYear, parseDate} from "../../misc/Formatter"
+import type {TranslationKey} from "../../misc/LanguageViewModel"
 import {lang} from "../../misc/LanguageViewModel"
 import {px} from "../size"
 import {theme} from "../theme"
@@ -34,7 +35,7 @@ export class DatePicker implements Component {
 	_showingDropdown: boolean;
 	_disabled: boolean;
 
-	constructor(startOfTheWeekOffset: number, labelTextIdOrTextFunction: string | lazy<string>, nullSelectionTextId: TranslationKey = "emptyString_msg", disabled: boolean = false) {
+	constructor(startOfTheWeekOffset: number, labelTextIdOrTextFunction: TranslationKey | lazy<string>, nullSelectionTextId: TranslationKey = "emptyString_msg", disabled: boolean = false) {
 		this.date = stream(null)
 		this._startOfTheWeekOffset = startOfTheWeekOffset
 		this._showingDropdown = false

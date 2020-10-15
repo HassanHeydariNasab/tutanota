@@ -1,5 +1,6 @@
 import {IncomingMessage} from "electron"
 import {ElectronHttpExecutor} from "electron-updater/out/electronHttpExecutor"
+import EventEmitter from 'events'
 
 /**
  * this file is highly inaccurate, check the docs at electronjs.org
@@ -273,7 +274,8 @@ declare module 'electron' {
 			parent: ?BrowserWindow,
 			options: MessageBoxOptions
 		): Promise<{response: number, checkboxChecked: boolean}>,
-		showOpenDialog(browserWindow: ?BrowserWindow, options: OpenDialogOptions): Promise<{canceled: boolean, filePaths: string[]}>
+		showOpenDialog(browserWindow: ?BrowserWindow, options: OpenDialogOptions): Promise<{canceled: boolean, filePaths: string[]}>,
+		showSaveDialog(browserWindow: ?BrowserWindow, options: SaveDialogOptions): Promise<{canceled: boolean, filePath?: string, bookmark?: string}>
 	}
 
 	declare export type OpenDialogOptions = {
@@ -282,6 +284,12 @@ declare module 'electron' {
 		buttonLabel?: string,
 		filters?: Array<{name: string, extensions: Array<string>}>,
 		properties: Array<'openFile' | 'openDirectory' | 'multiSelection' | 'showHiddenFiles'>,
+	}
+
+	declare export type SaveDialogOptions = {
+		title?: string,
+		defaultPath?: string,
+		// Incomplete
 	}
 
 	declare export type MessageBoxOptions = {
@@ -503,7 +511,7 @@ declare module 'electron' {
 		removeAllListeners: (event: ElectronSessionEvent) => ElectronSession;
 	}
 
-	declare export type DownloadItem = {
+	declare export class DownloadItem extends EventEmitter {
 		on('done' | 'updated', (event: Event, state: string) => void): DownloadItem;
 		savePath: string;
 		getFilename: () => string;

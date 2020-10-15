@@ -4,6 +4,7 @@ import {modal} from "./Modal"
 import {animations, opacity, transform} from "./../animation/Animations"
 import {ease} from "../animation/Easing"
 import {px, size} from "../size"
+import type {Shortcut} from "../../misc/KeyManager"
 import {focusNext, focusPrevious} from "../../misc/KeyManager"
 import {client} from "../../misc/ClientDetector"
 import type {ButtonAttrs} from "./ButtonN"
@@ -17,7 +18,6 @@ import {asyncImport} from "../../api/common/utils/Utils"
 import type {PosRect} from "./Dropdown"
 import {Keys} from "../../api/common/TutanotaConstants"
 import {newMouseEvent} from "../HtmlUtils"
-import type {Shortcut} from "../../misc/KeyManager"
 
 assertMainOrNodeBoot()
 
@@ -290,6 +290,7 @@ export function createDropdown(lazyButtons: lazy<$ReadOnlyArray<DropDownChildAtt
 }
 
 const importBase = typeof module !== "undefined" ? module.id : __moduleName
+
 export function createAsyncDropdown(lazyButtons: lazyAsync<$ReadOnlyArray<DropDownChildAttrs>>, width: number = 200): clickHandler {
 	// not all browsers have the actual button as e.currentTarget, but all of them send it as a second argument (see https://github.com/tutao/tutanota/issues/1110)
 	return ((e, dom) => {
@@ -354,7 +355,7 @@ export function attachDropdown(
 
 export const DROPDOWN_MARGIN = 4
 
-export function showDropdown(origin: PosRect, domDropdown: HTMLElement, contentHeight: number, contentWidth: number) {
+export function showDropdown(origin: PosRect, domDropdown: HTMLElement, contentHeight: number, contentWidth: number): Promise<void> {
 	// |------------------|    |------------------|    |------------------|    |------------------|
 	// |                  |    |                  |    |                  |    |                  |
 	// |      |-------|   |    |  |-------|       |    |  |-----------|   |    |  |-----------|   |

@@ -1,6 +1,7 @@
 // @flow
 import {size} from "../size"
 import m from "mithril"
+import type {TranslationKey} from "../../misc/LanguageViewModel"
 import {lang} from "../../misc/LanguageViewModel"
 import {addFlash, removeFlash} from "./Flash"
 import type {PosRect} from "./Dropdown"
@@ -257,14 +258,14 @@ export class Button {
 	}
 }
 
-export function createDropDownButton(labelTextIdOrTextFunction: string | lazy<string>, icon: ?lazy<AllIconsEnum>,
+export function createDropDownButton(labelTextIdOrTextFunction: TranslationKey | lazy<string>, icon: ?lazy<AllIconsEnum>,
                                      lazyButtons: lazy<$ReadOnlyArray<string | Button>>, width: number = 200,
                                      originOverride: ?(() => PosRect)): Button {
 	return createAsyncDropDownButton(labelTextIdOrTextFunction, icon, () => Promise.resolve(lazyButtons()), width,
 		originOverride)
 }
 
-export function createAsyncDropDownButton(labelTextIdOrTextFunction: string | lazy<string>, icon: ?lazyIcon,
+export function createAsyncDropDownButton(labelTextIdOrTextFunction: TranslationKey | lazy<string>, icon: ?lazyIcon,
                                           lazyButtons: lazyAsync<$ReadOnlyArray<string | Button>>,
                                           width: number = 200, originOverride: ?(() => PosRect))
 	: Button {

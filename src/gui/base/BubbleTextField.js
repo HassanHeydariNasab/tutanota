@@ -71,7 +71,7 @@ export class BubbleTextField<T> {
 
 	_domSuggestions: HTMLElement;
 
-	constructor(labelIdOrLabelTextFunction: string | lazy<string>, bubbleHandler: BubbleHandler<T, any>,
+	constructor(labelIdOrLabelTextFunction: TranslationKey | lazy<string>, bubbleHandler: BubbleHandler<T, any>,
 	            suggestionStyle: {[string]: any} = {}) {
 		this.loading = null
 		this.suggestions = []
@@ -184,7 +184,7 @@ export class BubbleTextField<T> {
 	}
 
 
-	handleKey(key: KeyPress) {
+	handleKey(key: KeyPress): boolean {
 		switch (key.keyCode) {
 			case 13: // return
 			case 32: // whitespace
@@ -233,7 +233,7 @@ export class BubbleTextField<T> {
 		return false //TODO: explain
 	}
 
-	handleBackspace() {
+	handleBackspace(): boolean {
 		const input = this.textField._domInput
 		if (input && this.bubbles.length > 0 && input.selectionStart === 0
 			&& input.selectionEnd === 0) {
@@ -245,7 +245,7 @@ export class BubbleTextField<T> {
 		return true
 	}
 
-	handleDelete() {
+	handleDelete(): boolean {
 		let selected = this.bubbles.find(b => isSelected(b.buttonAttrs))
 		if (selected) {
 			let selectedIndex = this.bubbles.indexOf((selected: any))
@@ -258,7 +258,7 @@ export class BubbleTextField<T> {
 		return true
 	}
 
-	handleLeftArrow() {
+	handleLeftArrow(): boolean {
 		let selected = this.bubbles.find(b => isSelected(b.buttonAttrs))
 		if (selected) {
 			let selectedIndex = this.bubbles.indexOf((selected: any))
@@ -274,7 +274,7 @@ export class BubbleTextField<T> {
 		return true
 	}
 
-	handleRightArrow() {
+	handleRightArrow(): boolean {
 		let selected = this.bubbles.find(b => isSelected(b.buttonAttrs))
 		if (selected) {
 			let selectedIndex = this.bubbles.indexOf((selected: any))
@@ -287,7 +287,7 @@ export class BubbleTextField<T> {
 		return true
 	}
 
-	handleUpArrow() {
+	handleUpArrow(): boolean {
 		if (this.selectedSuggestion != null) {
 			this.selectedSuggestion.selected = false
 			let next = (this.suggestions.indexOf(this.selectedSuggestion) - 1) % this.suggestions.length

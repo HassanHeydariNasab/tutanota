@@ -9,7 +9,6 @@ import {lang} from "../../misc/LanguageViewModel"
 import {assertMainOrNode} from "../../api/Env"
 import type {KeyPress, Shortcut} from "../../misc/KeyManager"
 import {focusNext, focusPrevious} from "../../misc/KeyManager"
-import {neverNull} from "../../api/common/utils/Utils"
 import {getElevatedBackground} from "../theme"
 import {px, size} from "../size"
 import {HabReminderImage} from "./icons/Icons"
@@ -138,13 +137,13 @@ export class Dialog {
 	}
 
 	_defaultFocusOnLoad() {
-			let inputs = Array.from(this._domDialog.querySelectorAll(INPUT))
-			if (inputs.length > 0) {
-				inputs[0].focus()
-			} else {
-				let button = this._domDialog.querySelector("button")
-				if (button) {
-					button.focus()
+		let inputs = Array.from(this._domDialog.querySelectorAll(INPUT))
+		if (inputs.length > 0) {
+			inputs[0].focus()
+		} else {
+			let button = this._domDialog.querySelector("button")
+			if (button) {
+				button.focus()
 			}
 		}
 	}
@@ -199,7 +198,7 @@ export class Dialog {
 		return this
 	}
 
-	shortcuts() {
+	shortcuts(): Shortcut[] {
 		return this._shortcuts
 	}
 
@@ -474,7 +473,7 @@ export class Dialog {
 		return dialog.show()
 	}
 
-	static createActionDialog(props: ActionDialogProps) {
+	static createActionDialog(props: ActionDialogProps): Dialog {
 		let dialog: Dialog
 		const {title, child, okAction, validator, allowCancel, allowOkWithReturn, okActionTextId, cancelActionTextId, cancelAction, type} =
 			Object.assign({}, {

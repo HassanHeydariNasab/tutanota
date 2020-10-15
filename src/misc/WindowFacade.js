@@ -80,7 +80,7 @@ class WindowFacade {
 		}
 	}
 
-	openLink(href: string): window {
+	openLink(href: string): typeof window {
 		if (env.mode === Mode.App) {
 			return window.open(href, "_system");
 		} else {

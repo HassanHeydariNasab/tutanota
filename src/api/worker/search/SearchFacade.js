@@ -17,7 +17,8 @@ import type {
 	SearchIndexEntry,
 	SearchIndexMetaDataDbRow,
 	SearchIndexMetadataEntry,
-	SearchIndexMetaDataRow
+	SearchIndexMetaDataRow,
+	SearchRestriction
 } from "./SearchTypes"
 import type {TypeInfo} from "./IndexUtils"
 import {

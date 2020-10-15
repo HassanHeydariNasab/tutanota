@@ -11,7 +11,7 @@ import type {UserSettingsGroupRoot} from "../entities/tutanota/UserSettingsGroup
 import type {CalendarEventAttendee} from "../entities/tutanota/CalendarEventAttendee"
 
 export const reverse = (objectMap: Object): {} => Object.keys(objectMap)
-                                                    .reduce((r, k) => Object.assign(r, {[objectMap[k]]: k}), {})
+                                                        .reduce((r, k) => Object.assign(r, {[objectMap[k]]: k}), {})
 
 export const MAX_NBR_MOVE_DELETE_MAIL_SERVICE = 50
 
@@ -454,7 +454,7 @@ export const AlarmInterval = Object.freeze({
 	ONE_WEEK: "1W",
 })
 export type AlarmIntervalEnum = $Values<typeof AlarmInterval>
-
+export const AlarmIntervalByCode: {} = reverse(AlarmInterval)
 
 export const EventTextTimeOption = Object.freeze({
 	NO_TIME: "noTime",
@@ -669,6 +669,7 @@ export const CalendarAttendeeStatus = Object.freeze({
 })
 
 export type CalendarAttendeeStatusEnum = $Values<typeof CalendarAttendeeStatus>
+export const attendeeStatusByCode: {} = reverse(CalendarAttendeeStatus)
 
 export function getAttendeeStatus(attendee: CalendarEventAttendee): CalendarAttendeeStatusEnum {
 	return downcast(attendee.status)
@@ -699,7 +700,7 @@ export const MailMethod = Object.freeze({
 	ICAL_DECLINECOUNTER: "8"
 })
 
-const icalToMailMethodMapping = {
+const icalToMailMethodMapping = Object.freeze({
 	PUBLISH: MailMethod.ICAL_PUBLISH,
 	REQUEST: MailMethod.ICAL_REQUEST,
 	REPLY: MailMethod.ICAL_REPLY,
@@ -708,8 +709,9 @@ const icalToMailMethodMapping = {
 	REFRESH: MailMethod.ICAL_REFRESH,
 	COUNTER: MailMethod.ICAL_COUNTER,
 	DECLINECOUNTER: MailMethod.ICAL_COUNTER
-}
-const mailMethodToIcalMapping = reverse(icalToMailMethodMapping)
+})
+
+const mailMethodToIcalMapping: {[$ElementType<typeof icalToMailMethodMapping, $Keys<typeof icalToMailMethodMapping>>]: $Keys<typeof icalToMailMethodMapping>} = reverse(icalToMailMethodMapping)
 
 export function mailMethodToCalendarMethod(mailMethod: MailMethodEnum): CalendarMethodEnum {
 	const calendarMethod = mailMethodToIcalMapping[mailMethod]

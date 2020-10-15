@@ -16,7 +16,13 @@ import JSBN from "./lib/crypto-jsbn-2012-08-09_1"
 import {rsaApp} from "../../../native/RsaApp" // importing with {} from CJS modules is not supported for dist-builds currently (must be a systemjs builder bug)
 const RSAKey = JSBN.RSAKey
 const parseBigInt = JSBN.parseBigInt
-const BigInteger = JSBN.BigInteger
+const BigInteger: Class<BigIntegerType> = JSBN.BigInteger
+
+type BigIntegerType = {
+	toByteArray(): Uint8Array;
+	toString(radix: number): string;
+	bitLength(): number;
+}
 
 assertWorkerOrNode()
 

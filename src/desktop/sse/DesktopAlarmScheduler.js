@@ -1,7 +1,8 @@
 // @flow
 
 import {lang} from "../../misc/LanguageViewModel"
-import {AlarmInterval, EndType, OperationType, RepeatPeriod} from "../../api/common/TutanotaConstants"
+import type {AlarmIntervalEnum} from "../../api/common/TutanotaConstants"
+import {AlarmInterval, AlarmIntervalByCode, EndType, OperationType, RepeatPeriod} from "../../api/common/TutanotaConstants"
 import type {AlarmNotification} from "../../api/entities/sys/AlarmNotification"
 import {_TypeModel as AlarmNotificationTypeModel} from "../../api/entities/sys/AlarmNotification"
 import {last} from "../../api/common/utils/ArrayUtils"
@@ -112,7 +113,7 @@ export class DesktopAlarmScheduler {
 		let mightNeedIntermediateSchedule = false
 
 		// fallback 5 minute alarm if invalid trigger
-		const trigger = TRIGGER_TIMES_IN_MS[decAn.alarmInfo.trigger] || TRIGGER_TIMES_IN_MS[AlarmInterval.FIVE_MINUTES]
+		const trigger = TRIGGER_TIMES_IN_MS[AlarmIntervalByCode[decAn.alarmInfo.trigger]] || TRIGGER_TIMES_IN_MS[AlarmInterval.FIVE_MINUTES]
 
 		decAn[Symbol.iterator] = occurrenceIterator
 		for (const occurrence of downcast(decAn)) {
@@ -173,15 +174,15 @@ export class DesktopAlarmScheduler {
  * yield event occurrences according to the repeatRule contained in the AlarmNotification
  */
 export function occurrenceIterator(): {|
-  firstOccurrence: Date,
-  lastOccurrenceDate: Date,
-  lastYieldedOccurrence: null,
-  maxOccurrences: number,
-  next: () => {|done: any, value: any|},
-  nextYieldedOccurrence: Date,
-  numYieldedOccurrences: number,
-  occurrenceIncrement: any | null,
-  occurrenceInterval: null | number,
+	firstOccurrence: Date,
+	lastOccurrenceDate: Date,
+	lastYieldedOccurrence: null,
+	maxOccurrences: number,
+	next: () => {|done: any, value: any|},
+	nextYieldedOccurrence: Date,
+	numYieldedOccurrences: number,
+	occurrenceIncrement: any | null,
+	occurrenceInterval: null | number,
 |} {
 	let maxOccurrences: number = 1
 	let lastOccurrenceDate: Date = new Date(MAX_SAFE_DATE)

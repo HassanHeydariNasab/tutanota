@@ -18,7 +18,7 @@ import {ContactTypeRef} from "../api/entities/tutanota/Contact"
 import type {Shortcut} from "../misc/KeyManager"
 import {keyManager} from "../misc/KeyManager"
 import type {ListElement} from "../api/common/EntityFunctions"
-import {getElementId, isSameTypeRef} from "../api/common/EntityFunctions"
+import {getElementId, isSameTypeRef, TypeRef} from "../api/common/EntityFunctions"
 import {mod} from "../misc/MathUtils"
 import {NotAuthorizedError, NotFoundError} from "../api/common/error/RestError"
 import {getRestriction, getSearchUrl, isAdministratedGroup, setSearchUrl} from "./SearchUtils"
@@ -44,6 +44,7 @@ import {routeChange} from "../misc/RouteChange"
 import {IndexingNotSupportedError} from "../api/common/error/IndexingNotSupportedError"
 import {lang} from "../misc/LanguageViewModel"
 import {AriaLandmarks, landmarkAttrs} from "../api/common/utils/AriaUtils"
+import type {SearchRestriction} from "../api/worker/search/SearchTypes"
 
 assertMainOrNode()
 

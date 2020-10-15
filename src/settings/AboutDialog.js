@@ -3,9 +3,7 @@ import m from "mithril"
 import {ButtonN, ButtonType} from "../gui/base/ButtonN"
 import {getDesktopLogs, getDeviceLogs} from "../native/SystemApp"
 import {MailEditor} from "../mail/MailEditor"
-import {mailModel} from "../mail/MailModel"
 import {LogoSvg} from "../gui/base/icons/Logo"
-import {isColorLight} from "../calendar/CalendarUtils"
 import {theme} from "../gui/theme"
 import {isApp, isDesktop} from "../api/Env"
 import {worker} from "../api/main/WorkerClient"
@@ -14,6 +12,7 @@ import {downcast} from "../api/common/utils/Utils"
 import {clientInfoString} from "../misc/ErrorHandlerImpl"
 import {isColorLight} from "../gui/Color"
 import {lang} from "../misc/LanguageViewModel"
+import {locator} from "../api/main/MainLocator"
 
 export class AboutDialog implements MComponent<void> {
 	view(vnode: Vnode<void>): ?Children {

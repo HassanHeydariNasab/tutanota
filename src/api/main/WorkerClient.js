@@ -48,6 +48,8 @@ import type {EntityRestInterface} from "../worker/rest/EntityRestClient"
 import type {NewSessionData} from "../worker/facades/LoginFacade"
 import {logins} from "./LoginController"
 import type {RecipientInfo} from "../common/RecipientInfo"
+import type {Country} from "../common/CountryList"
+import type {SearchRestriction} from "../worker/search/SearchTypes"
 
 assertMainOrNode()
 

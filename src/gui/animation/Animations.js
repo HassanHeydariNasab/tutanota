@@ -34,7 +34,7 @@ const InitializedOptions = {
 	duration: DefaultAnimationTime
 }
 
-type AnimationPromise = {animations?: Array<Animation>} & Promise<void>
+export type AnimationPromise = {animations?: Array<Animation>} & Promise<void>
 
 class Animations {
 	activeAnimations: Animation[];
@@ -145,7 +145,7 @@ export class Animation {
 		}
 	}
 
-	isFinished() {
+	isFinished(): boolean {
 		return this.runTime != null && this.runTime >= this.duration
 	}
 }

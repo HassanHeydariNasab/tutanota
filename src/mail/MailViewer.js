@@ -513,6 +513,7 @@ export class MailViewer {
 				return Dialog.error("unsubscribeFailed_msg")
 			})
 		}
+		return Promise.resolve()
 	}
 
 	actionButtons(): Children {
@@ -737,7 +738,7 @@ export class MailViewer {
 	_markAsNotPhishing(): Promise<void> {
 		const oldStatus = this.mail.phishingStatus
 		if (oldStatus === MailPhishingStatus.WHITELISTED) {
-			return
+			return Promise.resolve()
 		}
 
 		this.mail.phishingStatus = MailPhishingStatus.WHITELISTED
@@ -829,7 +830,7 @@ export class MailViewer {
 	/** @return list of inline referenced cid */
 	_loadMailBody(mail: Mail): Promise<Array<string>> {
 		return load(MailBodyTypeRef, mail.body).then(body => {
-			this._mailBody =  body
+			this._mailBody = body
 			let sanitizeResult = htmlSanitizer.sanitizeFragment(this._getMailBody(), true, isTutanotaTeamMail(mail))
 			this._checkMailForPhishing(mail, sanitizeResult.links)
 
@@ -1196,7 +1197,7 @@ export class MailViewer {
 
 	_reply(replyAll: boolean): Promise<void> {
 		if (this._isAnnouncement()) {
-			return
+			return Promise.resolve()
 		}
 		return checkApprovalStatus(false).then(sendAllowed => {
 			if (sendAllowed) {

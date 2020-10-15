@@ -2,7 +2,6 @@
 import {assertMainOrNodeBoot} from "../api/Env"
 import {asyncImport, downcast} from "../api/common/utils/Utils"
 import {client} from "./ClientDetector"
-import typeof en from "../translations/en"
 import type {TranslationKeyType} from "./TranslationKey"
 
 export type TranslationKey = TranslationKeyType

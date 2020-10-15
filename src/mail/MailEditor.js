@@ -18,6 +18,7 @@ import {
 	OperationType,
 	ReplyType
 } from "../api/common/TutanotaConstants"
+import type {AnimationPromise} from "../gui/animation/Animations"
 import {animations, height, opacity} from "../gui/animation/Animations"
 import {load, setup, update} from "../api/main/Entity"
 import {worker} from "../api/main/WorkerClient"
@@ -82,7 +83,7 @@ import {locator} from "../api/main/MainLocator"
 import {LazyContactListId} from "../contacts/ContactUtils"
 import {RecipientNotResolvedError} from "../api/common/error/RecipientNotResolvedError"
 import stream from "mithril/stream/stream.js"
-import type {EntityEventsListener} from "../api/main/EventController"
+import type {EntityEventsListener, EntityUpdateData} from "../api/main/EventController"
 import {isUpdateForTypeRef} from "../api/main/EventController"
 import {htmlSanitizer} from "../misc/HtmlSanitizer"
 import {RichTextToolbar} from "../gui/base/RichTextToolbar"
@@ -440,7 +441,7 @@ export class MailEditor {
 		}
 	}
 
-	animate(domElement: HTMLElement, fadein: boolean) {
+	animate(domElement: HTMLElement, fadein: boolean): AnimationPromise {
 		let childHeight = domElement.offsetHeight
 		return animations.add(domElement, fadein ? height(0, childHeight) : height(childHeight, 0))
 		                 .then(() => {
@@ -465,7 +466,7 @@ export class MailEditor {
 		return neverNull(this._mailAddressToPasswordField.get(recipientInfo.mailAddress))
 	}
 
-	getPasswordStrength(recipientInfo: RecipientInfo) {
+	getPasswordStrength(recipientInfo: RecipientInfo): number {
 		let reserved = getEnabledMailAddressesWithUser(this._mailboxDetails, logins.getUserController().userGroupInfo).concat(
 			getMailboxName(logins, this._mailboxDetails),
 			recipientInfo.mailAddress,
@@ -832,11 +833,11 @@ export class MailEditor {
 		}
 	}
 
-	_isConfidential() {
+	_isConfidential(): boolean {
 		return this._confidentialButtonState || !this._containsExternalRecipients()
 	}
 
-	getConfidentialStateMessage() {
+	getConfidentialStateMessage(): string {
 		if (this._isConfidential()) {
 			return lang.get('confidentialStatus_msg')
 		} else {
@@ -844,11 +845,11 @@ export class MailEditor {
 		}
 	}
 
-	_containsExternalRecipients() {
+	_containsExternalRecipients(): boolean {
 		return (this._allRecipients().find(r => isExternal(r)) != null)
 	}
 
-	send(showProgress: boolean = true, tooManyRequestsError: TranslationKey = "tooManyMails_msg") {
+	send(showProgress: boolean = true, tooManyRequestsError: TranslationKey = "tooManyMails_msg"): Promise<boolean> {
 		return Promise
 			.resolve()
 			.then(() => {
@@ -1182,7 +1183,7 @@ export class MailEditor {
 		)
 	}
 
-	_cleanupInlineAttachments = debounce(50, () => {
+	_cleanupInlineAttachments: Function = debounce(50, () => {
 		// Previously we replied on subtree option of MutationObserver to receive info when nested child is removed.
 		// It works but it doesn't work if the parent of the nested child is removed, we would have to go over each mutation
 		// and check each descendant and if it's an image with CID or not.
